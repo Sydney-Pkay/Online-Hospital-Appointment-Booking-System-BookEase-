@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="theme-color" content="#1d4ed8">
+<link rel="manifest" href="manifest.json">
+<title>BookEase — Hospital Appointment System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════
+   BOOKEASE HOSPITAL — MASTER STYLESHEET
+════════════════════════════════════════ */
+:root{
+  --primary:#1d4ed8; --primary-dark:#1e3a8a; --primary-light:#dbeafe;
+  --accent:#06b6d4;  --success:#059669; --warning:#d97706;
+  --danger:#dc2626;  --purple:#7c3aed;
+  --dark:#0f172a;    --mid:#334155;     --muted:#64748b;
+  --border:#e2e8f0;  --bg:#f8fafc;      --white:#ffffff;
+  --radius:14px;     --radius-sm:8px;
+  --shadow:0 4px 24px rgba(0,0,0,.08);
+  --shadow-lg:0 12px 48px rgba(0,0,0,.14);
+  --font-d:'Playfair Display',Georgia,serif;
+  --font-b:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+
+/* ── NAVBAR ── */
+.navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center;gap:8px;cursor:pointer}
+.logo-icon{font-size:20px;color:var(--primary)}
+.logo-text{font-family:var(--font-d);font-size:21px;font-weight:700;color:var(--dark)}
+.nav-links{display:flex;list-style:none;gap:2px;margin-left:12px}
+.nav-link{text-decoration:none;color:var(--muted);font-size:14px;font-weight:500;padding:7px 13px;border-radius:8px;transition:all .2s;cursor:pointer;border:none;background:none;font-family:var(--font-b)}
+.nav-link:hover,.nav-link.active{color:var(--primary);background:var(--primary-light)}
+.nav-right{margin-left:auto;display:flex;gap:10px;align-items:center}
+.hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;margin-left:auto;color:var(--dark)}
+.user-pill{display:flex;align-items:center;gap:8px;background:var(--primary-light);color:var(--primary);padding:6px 14px;border-radius:99px;font-size:13px;font-weight:600}
+.user-pill .avatar{width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:8px;font-family:var(--font-b);font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-primary{background:var(--primary);color:#fff;padding:10px 22px;font-size:14px}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:0 4px 14px rgba(29,78,216,.3)}
+.btn-outline{background:transparent;color:var(--primary);border:1.5px solid var(--primary);padding:9px 20px;font-size:14px}
+.btn-outline:hover{background:var(--primary-light)}
+.btn-ghost{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.4);padding:12px 26px;font-size:15px;backdrop-filter:blur(4px)}
+.btn-ghost:hover{background:rgba(255,255,255,.25)}
+.btn-success{background:var(--success)!important;color:#fff}
+.btn-success:hover{background:#047857!important}
+.btn-danger{background:var(--danger)!important;color:#fff}
+.btn-warning{background:var(--warning)!important;color:#fff}
+.btn-sm{padding:5px 12px!important;font-size:12px!important;border-radius:6px!important}
+.btn-lg{padding:14px 30px;font-size:16px;border-radius:10px}
+.full-w{width:100%}
+
+/* ── PAGES ── */
+.page{display:none;animation:fadeUp .35s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════ HERO ══════════ */
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 55%,#1d4ed8 100%);color:#fff;padding:80px 24px}
+.hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.22;animation:blobFloat 8s ease-in-out infinite}
+.blob-1{width:500px;height:500px;background:#06b6d4;top:-100px;right:-80px}
+.blob-2{width:350px;height:350px;background:#7c3aed;bottom:-60px;left:8%;animation-delay:3s}
+.blob-3{width:250px;height:250px;background:#f59e0b;top:40%;right:28%;animation-delay:6s}
+@keyframes blobFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.05)}}
+.hero-content{position:relative;z-index:2;max-width:580px}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:6px 16px;border-radius:99px;font-size:13px;font-weight:500;margin-bottom:22px;backdrop-filter:blur(4px)}
+.hero-title{font-family:var(--font-d);font-size:clamp(38px,5.5vw,68px);font-weight:700;line-height:1.1;margin-bottom:18px;letter-spacing:-1px}
+.hero-title em{font-style:italic;color:#67e8f9}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.75);line-height:1.65;margin-bottom:34px;font-weight:300}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:46px}
+.hero-stats{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat-num{font-size:28px;font-weight:700;font-family:var(--font-d)}
+.stat-label{font-size:12px;color:rgba(255,255,255,.6)}
+.stat-div{width:1px;height:38px;background:rgba(255,255,255,.2)}
+.hero-float{position:absolute;right:5%;top:50%;transform:translateY(-50%);z-index:2;animation:floatAnim 4s ease-in-out infinite}
+@keyframes floatAnim{0%,100%{transform:translateY(-50%) translateY(0)}50%{transform:translateY(-50%) translateY(-12px)}}
+.float-card{background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);width:290px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.fc-bar{display:flex;gap:6px;padding:11px 15px;background:rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.1)}
+.fc-dot{width:10px;height:10px;border-radius:50%}
+.fc-body{padding:12px;display:flex;flex-direction:column;gap:9px}
+.fc-row{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;background:rgba(255,255,255,.08)}
+.fc-row.c1{border-left:3px solid #4ade80}
+.fc-row.c2{border-left:3px solid #fbbf24}
+.fc-row.c3{border-left:3px solid #60a5fa}
+.fc-row strong{display:block;font-size:13px;font-weight:600}
+.fc-row small{display:block;font-size:11px;opacity:.7;margin-top:2px}
+
+/* ── SECTION HEADERS ── */
+.sec{padding:90px 24px}
+.sec-inner{max-width:1280px;margin:0 auto}
+.sec-head{text-align:center;margin-bottom:48px}
+.sec-head h2{font-family:var(--font-d);font-size:36px;font-weight:700;color:var(--dark);margin-bottom:10px}
+.sec-head p{color:var(--muted);font-size:15px}
+
+/* ── FEATURES GRID ── */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+.feat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:30px 26px;transition:all .3s;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.feat-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.feat-card:hover::before{transform:scaleX(1)}
+.feat-icon{font-size:34px;margin-bottom:14px}
+.feat-card h3{font-size:17px;font-weight:700;color:var(--dark);margin-bottom:9px}
+.feat-card p{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* ── SPECIALISTS SECTION ── */
+.spec-section{background:var(--dark);padding:90px 24px}
+.spec-section .sec-head h2{color:#fff}
+.spec-section .sec-head p{color:rgba(255,255,255,.5)}
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;max-width:1280px;margin:0 auto}
+.spec-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:28px 16px;text-align:center;cursor:pointer;transition:all .3s;color:#fff}
+.spec-card:hover{background:var(--primary);border-color:var(--primary);transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.spec-card .sicon{font-size:34px;margin-bottom:11px}
+.spec-card h4{font-size:14px;font-weight:700;margin-bottom:5px}
+.spec-card span{font-size:12px;opacity:.6}
+
+/* ══════════ PAGE CONTAINER ══════════ */
+.pg{max-width:1280px;margin:0 auto;padding:52px 24px 80px}
+.pg-head{margin-bottom:38px}
+.pg-head h2{font-family:var(--font-d);font-size:34px;font-weight:700;color:var(--dark);margin-bottom:7px}
+.pg-head p{color:var(--muted);font-size:15px}
+.pg-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.pg-row h2{font-family:var(--font-d);font-size:30px;font-weight:700;margin-bottom:4px}
+.pg-row p{color:var(--muted);font-size:14px}
+
+/* ══════════ STEPS BAR ══════════ */
+.steps{display:flex;align-items:center;justify-content:center;margin-bottom:44px}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:5px}
+.step-num{width:38px;height:38px;border-radius:50%;background:var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;transition:all .3s}
+.step-item.active .step-num,.step-item.done .step-num{background:var(--primary);color:#fff}
+.step-lbl{font-size:11px;color:var(--muted);font-weight:500}
+.step-item.active .step-lbl{color:var(--primary);font-weight:700}
+.step-line{width:70px;height:2px;background:var(--border);margin-bottom:16px;transition:background .3s}
+.step-line.done{background:var(--primary)}
+
+/* ══════════ BOOKING FORM ══════════ */
+.book-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:38px;box-shadow:var(--shadow);max-width:800px;margin:0 auto}
+.form-step{display:none}
+.form-step.active{display:block;animation:fadeUp .3s ease}
+.step-title{font-family:var(--font-d);font-size:23px;font-weight:700;color:var(--dark);margin-bottom:26px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+
+/* Service options */
+.svc-opts{display:flex;flex-direction:column;gap:11px;margin-bottom:28px}
+.svc-opt{cursor:pointer}
+.svc-opt input{display:none}
+.svc-body{display:flex;align-items:center;gap:14px;padding:14px 18px;border:2px solid var(--border);border-radius:11px;transition:all .2s;background:var(--bg)}
+.svc-opt:hover .svc-body{border-color:var(--primary);background:var(--primary-light)}
+.svc-opt input:checked + .svc-body{border-color:var(--primary);background:var(--primary-light);box-shadow:0 0 0 3px rgba(29,78,216,.1)}
+.svc-icon{font-size:26px;flex-shrink:0}
+.svc-text strong{display:block;font-size:14px;color:var(--dark)}
+.svc-text small{font-size:12px;color:var(--muted)}
+
+/* Form fields */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg.fw{grid-column:1/-1}
+.fg label{font-size:12px;font-weight:600;color:var(--mid)}
+.fg input,.fg select,.fg textarea{padding:10px 13px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-b);font-size:14px;color:var(--dark);background:var(--white);transition:all .2s;outline:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(29,78,216,.1)}
+.fg textarea{resize:vertical;min-height:85px}
+
+/* Confirm card */
+.confirm-card{background:var(--bg);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:28px}
+.cc-head{display:flex;align-items:center;gap:11px;padding:16px 22px;background:var(--primary);color:#fff}
+.cc-head h4{font-size:16px;font-weight:700}
+.cc-body{padding:22px}
+.cc-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px}
+.cc-row:last-child{border-bottom:none}
+.cc-row span:first-child{color:var(--muted);font-weight:500}
+.cc-row span:last-child{color:var(--dark);font-weight:600}
+
+.form-nav{display:flex;gap:11px;justify-content:flex-end;padding-top:14px;border-top:1px solid var(--border)}
+
+/* ══════════ FILTER BAR ══════════ */
+.filter-bar{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.fbtn{padding:7px 16px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);font-family:var(--font-b);font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s}
+.fbtn:hover{border-color:var(--primary);color:var(--primary)}
+.fbtn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+
+/* ══════════ SEARCH BAR ══════════ */
+.search-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.search-bar input{flex:1;min-width:200px;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-b);font-size:14px;outline:none;transition:all .2s}
+.search-bar input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(29,78,216,.1)}
+
+/* ══════════ TABLE ══════════ */
+.tbl-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.tbl-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--bg);border-bottom:1px solid var(--border)}
+th{padding:13px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+td{padding:14px 16px;font-size:13.5px;color:var(--dark);border-bottom:1px solid var(--border);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg)}
+
+/* Badges */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;border-radius:99px;font-size:11px;font-weight:700}
+.b-confirmed{background:#d1fae5;color:#065f46}
+.b-pending{background:#fef3c7;color:#92400e}
+.b-cancelled,.b-rejected{background:#fee2e2;color:#991b1b}
+.b-approved{background:#d1fae5;color:#065f46}
+
+/* Action btns */
+.act-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--white);font-family:var(--font-b);font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;margin-right:4px;white-space:nowrap}
+.act-btn:hover{border-color:var(--primary);color:var(--primary)}
+.act-btn.approve:hover{border-color:var(--success);color:var(--success)}
+.act-btn.reject:hover,.act-btn.cancel:hover{border-color:var(--danger);color:var(--danger)}
+.act-btn.del:hover{border-color:var(--danger);color:var(--danger);background:#fff5f5}
+
+/* Empty state */
+.empty{text-align:center;padding:56px 24px;color:var(--muted)}
+.empty span{font-size:46px;display:block;margin-bottom:12px}
+.empty p{font-size:15px}
+.empty a{color:var(--primary);font-weight:600;cursor:pointer}
+
+/* ══════════ ADMIN STATS ══════════ */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin-bottom:32px}
+.stat-card{border-radius:var(--radius);padding:26px 22px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.stat-card::after{content:attr(data-icon);position:absolute;right:16px;top:14px;font-size:40px;opacity:.18}
+.sc-blue{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
+.sc-green{background:linear-gradient(135deg,#059669,#34d399)}
+.sc-yellow{background:linear-gradient(135deg,#d97706,#fbbf24)}
+.sc-red{background:linear-gradient(135deg,#dc2626,#f87171)}
+.sc-val{font-family:var(--font-d);font-size:42px;font-weight:700;line-height:1;margin-bottom:5px}
+.sc-lbl{font-size:13px;opacity:.88;font-weight:500}
+
+/* Admin panels */
+.admin-panels{display:grid;grid-template-columns:1.3fr 1fr;gap:22px}
+.panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.panel-head{padding:16px 22px;border-bottom:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:space-between}
+.panel-head h3{font-size:16px;font-weight:700;color:var(--dark)}
+.panel-body{padding:22px}
+.chart-wrap{padding:22px}
+.chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted)}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* ══════════ MODAL ══════════ */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;padding:20px}
+.overlay.open{display:flex;animation:fadeUp .2s ease}
+.modal{background:var(--white);border-radius:18px;padding:38px;width:100%;max-width:420px;position:relative;text-align:center;box-shadow:var(--shadow-lg)}
+.modal-icon{font-size:46px;margin-bottom:10px}
+.modal h3{font-family:var(--font-d);font-size:24px;font-weight:700;margin-bottom:5px}
+.modal>p{color:var(--muted);font-size:13px;margin-bottom:20px}
+.modal .fg{text-align:left;margin-bottom:14px}
+.modal-close{position:absolute;top:14px;right:16px;background:var(--bg);border:1px solid var(--border);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{background:var(--border)}
+.modal-foot{margin-top:16px;font-size:12px;color:var(--muted)}
+.modal-foot a{color:var(--primary);font-weight:600;cursor:pointer}
+.modal-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:20px}
+.mtab{flex:1;padding:10px;font-size:13px;font-weight:600;cursor:pointer;background:none;border:none;font-family:var(--font-b);color:var(--muted);transition:all .2s;border-bottom:2px solid transparent}
+.mtab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.mtab-pane{display:none}
+.mtab-pane.active{display:block}
+
+/* ══════════ TOAST ══════════ */
+.toast{position:fixed;bottom:26px;right:26px;background:var(--dark);color:#fff;padding:13px 22px;border-radius:10px;font-size:13.5px;font-weight:500;z-index:999;box-shadow:var(--shadow-lg);transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);max-width:310px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:var(--success)}
+.toast.error{background:var(--danger)}
+.toast.info{background:var(--primary)}
+
+/* ══════════ ADMIN BADGE ══════════ */
+.admin-badge{display:inline-flex;align-items:center;gap:6px;background:#fef3c7;color:#92400e;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:700}
+
+/* ══════════ FOOTER ══════════ */
+.footer{background:var(--dark);color:rgba(255,255,255,.5);text-align:center;padding:32px 24px}
+.footer-brand{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-d);font-size:19px;color:#fff;margin-bottom:8px}
+.footer p{font-size:12px;margin-top:4px}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:900px){
+  .hero-float{display:none}
+  .admin-panels{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .nav-links,.nav-right{display:none}
+  .hamburger{display:block}
+  .form-grid{grid-template-columns:1fr}
+  .book-wrap{padding:22px 16px}
+  .step-line{width:36px}
+  table th:nth-child(3),table td:nth-child(3){display:none}
+  .hero-stats{gap:14px}
+  .feat-grid{grid-template-columns:1fr}
+  .spec-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ===== Enhanced Mobile/Web Responsive Upgrade ===== */
+img{max-width:100%;height:auto}
+
+@media (max-width:768px){
+  .nav-links{
+      position:absolute;
+      top:66px;
+      left:0;
+      width:100%;
+      flex-direction:column;
+      background:#fff;
+      padding:15px;
+      border-top:1px solid var(--border);
+      display:none;
+      z-index:999;
+  }
+
+  .nav-links.show{display:flex}
+  .nav-link{width:100%;text-align:left}
+
+  .hero{
+      text-align:center;
+      padding:50px 20px;
+      min-height:auto;
+  }
+
+  .hero-content{max-width:100%}
+  .hero-cta{justify-content:center}
+  .hero-title{font-size:34px}
+  .hero-sub{font-size:15px}
+
+  table,thead,tbody,th,td,tr{display:block}
+  thead{display:none}
+
+  tr{
+      background:#fff;
+      margin-bottom:15px;
+      border-radius:10px;
+      padding:10px;
+      border:1px solid #ddd;
+  }
+
+  td{
+      border:none !important;
+      padding:8px;
+  }
+
+  .stats-grid,
+  .admin-panels,
+  .feat-grid{
+      grid-template-columns:1fr !important;
+  }
+
+  .btn{
+      min-height:44px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAVBAR ════════════ -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="logo" onclick="goTo('home')">
+      <img src="logo 2.png" alt="BookEase Logo" style="width:32px; height:32px; object-fit:contain;">
+      <span class="logo-text">BookEase</span>
+    </div>
+    <ul class="nav-links">
+      <li><button class="nav-link active" data-page="home">Home</button></li>
+      <li><button class="nav-link" data-page="book">Book</button></li>
+      <li><button class="nav-link" data-page="appointments">My Appointments</button></li>
+      <li><button class="nav-link" data-page="admin">Admin</button></li>
+    </ul>
+    <div class="nav-right" id="navRight">
+      <button class="btn btn-outline" id="loginBtn">Sign In</button>
+      <button class="btn btn-primary" id="regBtn">Register</button>
+    </div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<!-- ════════════ MAIN PAGES ════════════ -->
+<main>
+
+<!-- ▸▸ HOME ◂◂ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="hero-content">
+      <span class="hero-badge">Felix N.T. Noi · (Index: 6401724) & Sydney Nyarko. (Index: 6401824)</span>
+      <h1 class="hero-title">Hospital Appointments,<br><em>Simplified.</em></h1>
+      <p class="hero-sub">A modern, digital platform for booking and managing hospital appointments — from General Practitioners to Specialists, all in one place.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" onclick="goTo('book')">Book Appointment →</button>
+        <button class="btn btn-ghost btn-lg" onclick="goTo('appointments')">View My Bookings</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Specialists</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Booking Access</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Digital Records</span></div>
+      </div>
+    </div>
+    <div class="hero-float">
+      <div class="float-card">
+        <div class="fc-bar">
+          <span class="fc-dot" style="background:#4ade80"></span>
+          <span class="fc-dot" style="background:#fbbf24"></span>
+          <span class="fc-dot" style="background:#f87171"></span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-row c1"><span style="font-size:20px">✓</span><div><strong>Dr. Mensah</strong><small>Today, 10:00 AM · Confirmed</small></div></div>
+          <div class="fc-row c2"><span style="font-size:20px">⏳</span><div><strong>Cardiologist</strong><small>Thu, 2:30 PM · Pending</small></div></div>
+          <div class="fc-row c3"><span style="font-size:20px">📅</span><div><strong>Pediatrician</strong><small>Fri, 9:00 AM · Upcoming</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-head">
+        <h2>Why Choose BookEase?</h2>
+        <p>A complete hospital appointment solution built for efficiency</p>
+      </div>
+      <div class="feat-grid">
+        <div class="feat-card">
+  <div class="feat-icon">
+    <img src="scheduling.png" alt="Easy Scheduling" style="width: 50px; height: 50px;">
+  </div>
+  <h3>Easy Scheduling</h3>
+  <p>Book appointments with any specialist in under 2 minutes using our intuitive 3 step wizard.</p>
+</div>
+        <div class="feat-card"><div class="feat-icon">🏥</div><h3>10 Specialties</h3><p>From General Practitioners to Neurologists — access a wide range of medical specialists.</p></div>
+       <div class="feat-card">
+  <div class="feat-icon">
+    <img src="Admin dashboard.jpg" alt="Admin Dashboard" style="width: 50px; height: 50px;">
+  </div>
+  <h3>Admin Dashboard</h3>
+  <p>Hospital administrators can approve, reject, and track all appointments with full statistics.</p>
+</div>
+        <div class="feat-card">
+  <div class="feat-icon">
+    <img src="Secure Logins.png" alt="Secure Login" style="width: 50px; height: 50px;">
+  </div>
+  <h3>Secure Login</h3>
+  <p>Patient registration and login ensures only you can view and manage your appointments.</p>
+</div>
+        <div class="feat-card"><div class="feat-icon">🔄</div><h3>Live Status</h3><p>Track your appointment status in real time — Pending, Approved, or Rejected.</p></div>
+        <div class="feat-card">
+  <div class="feat-icon">
+    <img src="Mobile.jpg" alt="Mobile Friendly" style="width: 50px; height: 50px;">
+  </div>
+  <h3>Mobile Friendly</h3>
+  <p>Works perfectly on phones, tablets, and desktops no app download needed.</p>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Specialists -->
+  <section class="spec-section">
+    <div class="sec-head">
+      <h2>Our Specialists</h2>
+      <p>Click any specialty to book an appointment</p>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-card" onclick="goTo('book')">
+  <div class="sicon">
+    <img src="General Practitioner.jpg" alt="General Practitioner" style="width: 50px; height: 70px;">
+  </div>
+  <h4>General Practitioner</h4>
+  <span>Available</span>
+</div>
+      <div class="spec-card" onclick="goTo('book')"><div class="sicon">❤️</div><h4>Cardiologist</h4><span>Available</span></div>
+      <div class="spec-card" onclick="goTo('book')"><div class="sicon">👶</div><h4>Pediatrician</h4><span>Available</span></div>
+      <div class="spec-card" onclick="goTo('book')"><div class="sicon">🧠</div><h4>Neurologist</h4><span>Available</span></div>
+      <div class="spec-card" onclick="goTo('book')"><div class="sicon">🦷</div><h4>Dentist</h4><span>Available</span></div>
+      <div class="spec-card" onclick="goTo('book')"><div class="sicon">👁️</div><h4>Ophthalmologist</h4><span>Available</span></div>
+      <div class="spec-card" onclick="goTo('book')"><div class="sicon">🦴</div><h4>Orthopedic</h4><span>Available</span></div>
+      <div class="spec-card" onclick="goTo('book')"><div class="sicon">🧬</div><h4>Dermatologist</h4><span>Available</span></div>
+    </div>
+  </section>
+
+</div><!-- /home -->
+
+<!-- ▸▸ BOOK APPOINTMENT ◂◂ -->
+<div class="page" id="page-book">
+  <div class="pg">
+    <div class="pg-head">
+      <h2>Book an Appointment</h2>
+      <p>Complete the steps below to schedule your hospital visit</p>
+    </div>
+    <div class="steps">
+      <div class="step-item active" data-s="1"><span class="step-num">1</span><span class="step-lbl">Specialist</span></div>
+      <div class="step-line"></div>
+      <div class="step-item" data-s="2"><span class="step-num">2</span><span class="step-lbl">Details</span></div>
+      <div class="step-line"></div>
+      <div class="step-item" data-s="3"><span class="step-num">3</span><span class="step-lbl">Confirm</span></div>
+    </div>
+    <div class="book-wrap">
+      <!-- Step 1 -->
+      <div class="form-step active" id="s1">
+        <h3 class="step-title">Choose a Specialist</h3>
+        <div class="svc-opts" id="specialistOpts">
+          <label class="svc-opt"><input type="radio" name="specialist" value="General Practitioner"><span class="svc-body"><span class="svc-icon">👨‍⚕️</span><span class="svc-text"><strong>General Practitioner</strong><small>General health checkup and diagnosis</small></span></span></label>
+          <label class="svc-opt"><input type="radio" name="specialist" value="Cardiologist"><span class="svc-body"><span class="svc-icon">❤️</span><span class="svc-text"><strong>Cardiologist</strong><small>Heart and cardiovascular system</small></span></span></label>
+          <label class="svc-opt"><input type="radio" name="specialist" value="Pediatrician"><span class="svc-body"><span class="svc-icon">👶</span><span class="svc-text"><strong>Pediatrician</strong><small>Children's health and development</small></span></span></label>
+          <label class="svc-opt"><input type="radio" name="specialist" value="Neurologist"><span class="svc-body"><span class="svc-icon">🧠</span><span class="svc-text"><strong>Neurologist</strong><small>Brain, spine and nervous system</small></span></span></label>
+          <label class="svc-opt"><input type="radio" name="specialist" value="Dermatologist"><span class="svc-body"><span class="svc-icon">🧬</span><span class="svc-text"><strong>Dermatologist</strong><small>Skin, hair and nail conditions</small></span></span></label>
+          <label class="svc-opt"><input type="radio" name="specialist" value="Gynecologist"><span class="svc-body"><span class="svc-icon">🩺</span><span class="svc-text"><strong>Gynecologist</strong><small>Women's reproductive health</small></span></span></label>
+          <label class="svc-opt"><input type="radio" name="specialist" value="Orthopedic Specialist"><span class="svc-body"><span class="svc-icon">🦴</span><span class="svc-text"><strong>Orthopedic Specialist</strong><small>Bones, joints, and muscles</small></span></span></label>
+          <label class="svc-opt"><input type="radio" name="specialist" value="Psychiatrist"><span class="svc-body"><span class="svc-icon">🧘</span><span class="svc-text"><strong>Psychiatrist</strong><small>Mental health and behavioral therapy</small></span></span></label>
+          <label class="svc-opt"><input type="radio" name="specialist" value="Ophthalmologist"><span class="svc-body"><span class="svc-icon">👁️</span><span class="svc-text"><strong>Ophthalmologist</strong><small>Eyes and vision care</small></span></span></label>
+          <label class="svc-opt"><input type="radio" name="specialist" value="Dentist"><span class="svc-body"><span class="svc-icon">🦷</span><span class="svc-text"><strong>Dentist</strong><small>Oral health and dental care</small></span></span></label>
+        </div>
+        <div class="form-nav"><button class="btn btn-primary" onclick="toStep(2)">Next →</button></div>
+      </div>
+      <!-- Step 2 -->
+      <div class="form-step" id="s2">
+        <h3 class="step-title">Patient Details</h3>
+        <div class="form-grid">
+          <div class="fg"><label>Patient Full Name</label><input id="patName" placeholder="e.g. Kwame Mensah"/></div>
+          <div class="fg"><label>Email Address</label><input type="email" id="patEmail" placeholder="e.g. kwame@gmail.com"/></div>
+          <div class="fg"><label>Phone Number</label><input type="tel" id="patPhone" placeholder="e.g. 0244-000-000"/></div>
+          <div class="fg"><label>Date of Birth</label><input type="date" id="patDob"/></div>
+          <div class="fg"><label>Appointment Date</label><input type="date" id="apptDate"/></div>
+          <div class="fg"><label>Preferred Time</label>
+            <select id="apptTime">
+              <option value="">-- Select Time --</option>
+              <option>08:00 AM</option><option>09:00 AM</option><option>10:00 AM</option>
+              <option>11:00 AM</option><option>12:00 PM</option><option>02:00 PM</option>
+              <option>03:00 PM</option><option>04:00 PM</option>
+            </select>
+          </div>
+          <div class="fg fw"><label>Reason / Symptoms</label><textarea id="apptNotes" placeholder="Describe your symptoms or reason for visit..."></textarea></div>
+        </div>
+        <div class="form-nav">
+          <button class="btn btn-outline" onclick="toStep(1)">← Back</button>
+          <button class="btn btn-primary" onclick="toStep(3)">Next →</button>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div class="form-step" id="s3">
+        <h3 class="step-title">Review & Confirm</h3>
+        <div class="confirm-card">
+          <div class="cc-head"><span style="font-size:20px">📋</span><h4>Appointment Summary</h4></div>
+          <div class="cc-body" id="confirmBody"></div>
+        </div>
+        <div class="form-nav">
+          <button class="btn btn-outline" onclick="toStep(2)">← Back</button>
+          <button class="btn btn-primary btn-success" onclick="submitBooking()">✓ Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /book -->
+
+<!-- ▸▸ MY APPOINTMENTS ◂◂ -->
+<div class="page" id="page-appointments">
+  <div class="pg">
+    <div class="pg-row">
+      <div><h2>My Appointments</h2><p>Track and manage your hospital bookings</p></div>
+      <button class="btn btn-primary" onclick="goTo('book')">+ New Booking</button>
+    </div>
+    <div class="filter-bar">
+      <button class="fbtn active" data-f="all">All</button>
+      <button class="fbtn" data-f="pending">Pending</button>
+      <button class="fbtn" data-f="approved">Approved</button>
+      <button class="fbtn" data-f="rejected">Rejected</button>
+      <button class="fbtn" data-f="cancelled">Cancelled</button>
+    </div>
+    <div class="search-bar">
+      <input id="mySearch" placeholder=" Search by name, specialist..." oninput="renderMine()"/>
+    </div>
+    <div class="tbl-wrap">
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>Ref</th><th>Patient</th><th>Specialist</th><th>Date & Time</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="myTbody"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="myEmpty" style="display:none">
+        <span>📅</span>
+        <p>No appointments found. <a onclick="goTo('book')">Click Here to Book one now!</a></p>
+      </div>
+    </div>
+  </div>
+</div><!-- /appointments -->
+
+<!-- ▸▸ ADMIN DASHBOARD ◂◂ -->
+<div class="page" id="page-admin">
+  <div class="pg">
+    <div class="pg-row">
+      <div><h2>Admin Dashboard</h2><p>Manage all hospital appointments and records</p></div>
+      <span class="admin-badge">🔐 Admin Access</span>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card sc-blue" data-icon="📋"><div class="sc-val" id="stTotal">0</div><div class="sc-lbl">Total Bookings</div></div>
+      <div class="stat-card sc-yellow" data-icon="⏳"><div class="sc-val" id="stPending">0</div><div class="sc-lbl">Pending</div></div>
+      <div class="stat-card sc-green" data-icon="✅"><div class="sc-val" id="stApproved">0</div><div class="sc-lbl">Approved</div></div>
+      <div class="stat-card sc-red" data-icon="❌"><div class="sc-val" id="stRejected">0</div><div class="sc-lbl">Rejected / Cancelled</div></div>
+    </div>
+    <div class="search-bar" style="margin-bottom:16px">
+      <input id="adminSearch" placeholder="🔍  Search patient, specialist, ref..." oninput="renderAdmin()"/>
+      <select id="adminFilter" onchange="renderAdmin()" style="padding:10px 13px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-b);font-size:14px;outline:none;background:#fff">
+        <option value="all">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div class="admin-panels">
+      <div class="panel">
+        <div class="panel-head"><h3>All Appointments</h3><span id="adminCount" style="font-size:12px;color:var(--muted)"></span></div>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th>Ref</th><th>Patient</th><th>Specialist</th><th>Date & Time</th><th>Notes</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="adminTbody"></tbody>
+          </table>
+        </div>
+        <div class="empty" id="adminEmpty" style="display:none"><span>📋</span><p>No appointments match the filter.</p></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Specialist Distribution</h3></div>
+        <div class="chart-wrap">
+          <canvas id="adminChart" width="360" height="220"></canvas>
+          <div class="chart-legend" id="chartLegend"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /admin -->
+
+</main>
+
+<!-- ════════ AUTH MODAL ════════ -->
+<div class="overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+    <div class="modal-icon"><img src="logo 2.png" alt="Logo" style="width: 40px; height: 40px;"></div>
+    <h3>Welcome to BookEase</h3>
+    <p>Your hospital appointment portal</p>
+    <div class="modal-tabs">
+      <button class="mtab active" onclick="switchTab('login')">Sign In</button>
+      <button class="mtab" onclick="switchTab('register')">Register</button>
+    </div>
+    <!-- Login -->
+    <div class="mtab-pane active" id="tabLogin">
+      <div class="fg"><label>Email</label><input type="email" id="liEmail" placeholder="you@example.com"/></div>
+      <div class="fg" style="margin-bottom:18px"><label>Password</label><input type="password" id="liPass" placeholder="••••••••"/></div>
+      <button class="btn btn-primary full-w" onclick="doLogin()">Sign In</button>
+      <p style="font-size:12px;color:var(--muted);margin-top:12px;text-align:center">Demo admin: admin@bookease.com / admin123</p>
+    </div>
+    <!-- Register -->
+    <div class="mtab-pane" id="tabRegister">
+      <div class="fg"><label>Full Name</label><input id="rgName" placeholder="e.g. Kwame Asante"/></div>
+      <div class="fg"><label>Email</label><input type="email" id="rgEmail" placeholder="you@example.com"/></div>
+      <div class="fg" style="margin-bottom:18px"><label>Password</label><input type="password" id="rgPass" placeholder="Min. 6 characters"/></div>
+      <button class="btn btn-primary full-w" onclick="doRegister()">Create Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ TOAST ════════ -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="footer">
+  <div class="footer-brand">
+  <img src="logo 2.png" alt="BookEase Logo" style="width: 24px; height: 24px;"> BookEase Hospital
+</div>
+  <p>Online Appointment Booking System 2026</p>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════
+   BOOKEASE HOSPITAL — MASTER JAVASCRIPT
+════════════════════════════════════════════ */
+"use strict";
+
+// ── DATA STORE ────────────────────────────────
+let users        = JSON.parse(localStorage.getItem("bh_users") || "[]");
+let appointments = JSON.parse(localStorage.getItem("bh_appts") || "[]");
+let currentUser  = JSON.parse(localStorage.getItem("bh_user")  || "null");
+
+// Seed admin user if none exists
+if (!users.find(u => u.email === "admin@bookease.com")) {
+  users.push({ id:"u0", name:"Admin", email:"admin@bookease.com", password:"admin123", role:"admin" });
+  saveUsers();
+}
+
+// Seed demo appointments if empty
+if (appointments.length === 0) {
+  appointments = [
+    { id:"BK-001", userId:null, patient:"Felix Noi",    email:"felix@knust.edu.gh", phone:"0244-111-222", specialist:"General Practitioner", date:"2025-06-10", time:"10:00 AM", notes:"Annual checkup",     status:"approved"  },
+    { id:"BK-002", userId:null, patient:"Ama Boateng",  email:"ama@email.com",       phone:"0556-333-444", specialist:"Cardiologist",         date:"2025-06-12", time:"02:00 PM", notes:"Chest pains",       status:"pending"   },
+    { id:"BK-003", userId:null, patient:"Kofi Asante",  email:"kofi@mail.com",        phone:"0277-555-666", specialist:"Pediatrician",         date:"2025-06-08", time:"09:00 AM", notes:"Child fever",       status:"approved"  },
+    { id:"BK-004", userId:null, patient:"Abena Owusu",  email:"abena@web.com",         phone:"0244-777-888", specialist:"Neurologist",          date:"2025-06-05", time:"11:00 AM", notes:"Headaches",         status:"rejected"  },
+    { id:"BK-005", userId:null, patient:"Kwame Darko",  email:"kwame@test.com",        phone:"0500-999-000", specialist:"Dermatologist",        date:"2025-06-15", time:"03:00 PM", notes:"Skin rash",         status:"pending"   },
+    { id:"BK-006", userId:null, patient:"Akua Frimpong",email:"akua@mail.com",         phone:"0244-321-654", specialist:"Dentist",              date:"2025-06-18", time:"08:00 AM", notes:"Tooth pain",        status:"pending"   },
+  ];
+  saveAppts();
+}
+
+function saveUsers()  { localStorage.setItem("bh_users", JSON.stringify(users)); }
+function saveAppts()  { localStorage.setItem("bh_appts", JSON.stringify(appointments)); }
+function saveUser(u)  { currentUser = u; localStorage.setItem("bh_user", JSON.stringify(u)); }
+
+// ── NAVIGATION ────────────────────────────────
+let myFilter = "all";
+
+function goTo(page) {
+  if (page === "admin") {
+    if (!sessionStorage.getItem("bh_admin")) {
+      if (!currentUser || currentUser.role !== "admin") {
+        const pw = prompt("🔐 Enter Admin Password:");
+        if (pw === null) return;
+        if (pw !== "admin123") { showToast("Access denied ❌", "error"); return; }
+      }
+      sessionStorage.setItem("bh_admin", "1");
+      showToast("Admin access granted ✅", "success");
+    }
+  }
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+  document.getElementById("page-" + page).classList.add("active");
+  document.querySelector(`.nav-link[data-page="${page}"]`)?.classList.add("active");
+  window.scrollTo({ top:0, behavior:"smooth" });
+  if (page === "appointments") renderMine();
+  if (page === "admin")        renderAdmin();
+}
+
+document.querySelectorAll(".nav-link").forEach(btn => {
+  btn.addEventListener("click", () => goTo(btn.dataset.page));
+});
+
+
+document.getElementById("hamburger").addEventListener("click", () => {
+  document.querySelector(".nav-links")?.classList.toggle("show");
+});
+
+
+// ── AUTH ──────────────────────────────────────
+document.getElementById("loginBtn").addEventListener("click", () => openModal("authModal"));
+document.getElementById("regBtn").addEventListener("click",   () => { openModal("authModal"); switchTab("register"); });
+
+function openModal(id)  { document.getElementById(id).classList.add("open"); }
+function closeModal(id) { document.getElementById(id).classList.remove("open"); }
+
+document.getElementById("authModal").addEventListener("click", e => {
+  if (e.target === document.getElementById("authModal")) closeModal("authModal");
+});
+
+function switchTab(tab) {
+  document.querySelectorAll(".mtab").forEach((t,i) => t.classList.toggle("active", (i===0 && tab==="login") || (i===1 && tab==="register")));
+  document.getElementById("tabLogin").classList.toggle("active",    tab === "login");
+  document.getElementById("tabRegister").classList.toggle("active", tab === "register");
+}
+
+function doLogin() {
+  const email = document.getElementById("liEmail").value.trim();
+  const pass  = document.getElementById("liPass").value;
+  if (!email || !pass) { showToast("Fill in all fields", "error"); return; }
+  const u = users.find(x => x.email === email && x.password === pass);
+  if (!u) { showToast("Invalid email or password ❌", "error"); return; }
+  saveUser(u);
+  closeModal("authModal");
+  updateAuthUI();
+  showToast("Welcome back, " + u.name + "! 👋", "success");
+}
+
+function doRegister() {
+  const name  = document.getElementById("rgName").value.trim();
+  const email = document.getElementById("rgEmail").value.trim();
+  const pass  = document.getElementById("rgPass").value;
+  if (!name || !email || !pass) { showToast("Fill in all fields", "error"); return; }
+  if (pass.length < 6)          { showToast("Password must be at least 6 characters", "error"); return; }
+  if (users.find(u => u.email === email)) { showToast("Email already registered", "error"); return; }
+  const newUser = { id:"u"+Date.now(), name, email, password:pass, role:"user" };
+  users.push(newUser);
+  saveUsers();
+  saveUser(newUser);
+  closeModal("authModal");
+  updateAuthUI();
+  showToast("Account created! Welcome, " + name + " 🎉", "success");
+}
+
+function updateAuthUI() {
+  const lb = document.getElementById("loginBtn");
+  const rb = document.getElementById("regBtn");
+  const nr = document.getElementById("navRight");
+  if (currentUser) {
+    nr.innerHTML = `
+      <div class="user-pill">
+        <div class="avatar">${currentUser.name[0].toUpperCase()}</div>
+        ${currentUser.name}
+      </div>
+      <button class="btn btn-outline btn-sm btn" onclick="doLogout()">Sign Out</button>
+    `;
+  } else {
+    nr.innerHTML = `
+      <button class="btn btn-outline" id="loginBtn">Sign In</button>
+      <button class="btn btn-primary" id="regBtn">Register</button>
+    `;
+    document.getElementById("loginBtn").addEventListener("click", () => openModal("authModal"));
+    document.getElementById("regBtn").addEventListener("click",   () => { openModal("authModal"); switchTab("register"); });
+  }
+}
+
+function doLogout() {
+  currentUser = null;
+  localStorage.removeItem("bh_user");
+  sessionStorage.removeItem("bh_admin");
+  updateAuthUI();
+  showToast("Signed out", "info");
+  goTo("home");
+}
+
+updateAuthUI();
+
+// ── BOOKING FORM ──────────────────────────────
+let bookData = {};
+let curStep  = 1;
+
+function toStep(n) {
+  if (n === 2) {
+    const chosen = document.querySelector('input[name="specialist"]:checked');
+    if (!chosen) { showToast("Please select a specialist", "error"); return; }
+    bookData.specialist = chosen.value;
+  }
+  if (n === 3) {
+    const name  = document.getElementById("patName").value.trim();
+    const email = document.getElementById("patEmail").value.trim();
+    const phone = document.getElementById("patPhone").value.trim();
+    const date  = document.getElementById("apptDate").value;
+    const time  = document.getElementById("apptTime").value;
+    const notes = document.getElementById("apptNotes").value.trim();
+    if (!name || !email || !phone || !date || !time) { showToast("Please fill all required fields", "error"); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))  { showToast("Invalid email address", "error"); return; }
+    if (new Date(date) < new Date().setHours(0,0,0,0)) { showToast("Date cannot be in the past", "error"); return; }
+    bookData = { ...bookData, patient:name, email, phone, dob:document.getElementById("patDob").value, date, time, notes };
+    buildConfirm();
+  }
+  setStep(n);
+}
+
+function setStep(n) {
+  document.querySelectorAll(".form-step").forEach(s => s.classList.remove("active"));
+  document.getElementById("s"+n).classList.add("active");
+  document.querySelectorAll(".step-item").forEach(s => {
+    const sn = parseInt(s.dataset.s);
+    s.classList.toggle("active", sn === n);
+    s.classList.toggle("done",   sn < n);
+  });
+  document.querySelectorAll(".step-line").forEach((l,i) => l.classList.toggle("done", i < n-1));
+  curStep = n;
+}
+
+function buildConfirm() {
+  const rows = [
+    ["Specialist", bookData.specialist],
+    ["Patient Name", bookData.patient],
+    ["Email", bookData.email],
+    ["Phone", bookData.phone],
+    ["Date", fmtDate(bookData.date)],
+    ["Time", bookData.time],
+    ["Symptoms / Notes", bookData.notes || "—"],
+  ];
+  document.getElementById("confirmBody").innerHTML = rows.map(([k,v]) =>
+    `<div class="cc-row"><span>${k}</span><span>${v}</span></div>`
+  ).join("");
+}
+
+function submitBooking() {
+  const id = "BK-" + String(appointments.length + 1).padStart(3,"0");
+  appointments.push({ id, userId: currentUser?.id || null, ...bookData, status:"pending" });
+  saveAppts();
+  showToast("Appointment booked! Ref: " + id + " ✅", "success");
+  resetForm();
+  setTimeout(() => goTo("appointments"), 1200);
+}
+
+function resetForm() {
+  document.querySelectorAll('input[name="specialist"]').forEach(r => r.checked = false);
+  ["patName","patEmail","patPhone","patDob","apptNotes"].forEach(id => document.getElementById(id).value = "");
+  document.getElementById("apptDate").value = "";
+  document.getElementById("apptTime").selectedIndex = 0;
+  bookData = {};
+  setStep(1);
+}
+
+// Set min date to today
+document.getElementById("apptDate").addEventListener("focus", function() {
+  this.min = new Date().toISOString().split("T")[0];
+});
+
+// ── MY APPOINTMENTS ───────────────────────────
+function renderMine() {
+  const q   = (document.getElementById("mySearch")?.value || "").toLowerCase();
+  const tbody = document.getElementById("myTbody");
+  const empty = document.getElementById("myEmpty");
+
+  let list = appointments;
+  if (currentUser && currentUser.role !== "admin") {
+    list = list.filter(a => a.userId === currentUser.id || a.email === currentUser.email);
+  }
+  if (myFilter !== "all") list = list.filter(a => a.status === myFilter);
+  if (q) list = list.filter(a => a.patient?.toLowerCase().includes(q) || a.specialist?.toLowerCase().includes(q));
+
+  if (!list.length) { tbody.innerHTML = ""; empty.style.display = "block"; return; }
+  empty.style.display = "none";
+
+  tbody.innerHTML = list.map(a => `
+    <tr>
+      <td><strong>${a.id}</strong></td>
+      <td>${a.patient}<br><small style="color:var(--muted)">${a.email}</small></td>
+      <td>${a.specialist}</td>
+      <td>${fmtDate(a.date)}<br><small style="color:var(--muted)">${a.time}</small></td>
+      <td>${badge(a.status)}</td>
+      <td>
+        ${a.status === "pending" ? `<button class="act-btn cancel" onclick="cancelAppt('${a.id}','mine')">Cancel</button>` : ""}
+        <button class="act-btn del" onclick="deleteAppt('${a.id}','mine')">Delete</button>
+      </td>
+    </tr>`).join("");
+}
+
+document.querySelectorAll(".fbtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".fbtn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    myFilter = btn.dataset.f;
+    renderMine();
+  });
+});
+
+// ── ADMIN DASHBOARD ───────────────────────────
+function renderAdmin() {
+  const q  = (document.getElementById("adminSearch")?.value || "").toLowerCase();
+  const sf = document.getElementById("adminFilter")?.value || "all";
+
+  let list = [...appointments];
+  if (sf !== "all")  list = list.filter(a => a.status === sf);
+  if (q) list = list.filter(a =>
+    a.patient?.toLowerCase().includes(q) ||
+    a.specialist?.toLowerCase().includes(q) ||
+    a.id?.toLowerCase().includes(q)
+  );
+
+  // Stats
+  const all = appointments;
+  animCount("stTotal",    all.length);
+  animCount("stPending",  all.filter(a => a.status === "pending").length);
+  animCount("stApproved", all.filter(a => a.status === "approved").length);
+  animCount("stRejected", all.filter(a => a.status === "rejected" || a.status === "cancelled").length);
+
+  document.getElementById("adminCount").textContent = list.length + " record(s)";
+
+  const tbody = document.getElementById("adminTbody");
+  const empty = document.getElementById("adminEmpty");
+
+  if (!list.length) { tbody.innerHTML = ""; empty.style.display = "block"; return; }
+  empty.style.display = "none";
+
+  tbody.innerHTML = list.map(a => `
+    <tr>
+      <td><strong>${a.id}</strong></td>
+      <td>${a.patient}<br><small style="color:var(--muted)">${a.email}</small></td>
+      <td>${a.specialist}</td>
+      <td>${fmtDate(a.date)}<br><small style="color:var(--muted)">${a.time}</small></td>
+      <td><small style="color:var(--muted);font-size:11px">${(a.notes||"—").substring(0,30)}${(a.notes||"").length>30?"...":""}</small></td>
+      <td>${badge(a.status)}</td>
+      <td>
+        ${a.status === "pending" ? `
+          <button class="act-btn approve" onclick="adminUpdate('${a.id}','approved')">✓ Approve</button>
+          <button class="act-btn reject"  onclick="adminUpdate('${a.id}','rejected')">✕ Reject</button>
+        ` : ""}
+        ${a.status !== "cancelled" && a.status !== "pending" ? `<button class="act-btn cancel" onclick="adminUpdate('${a.id}','cancelled')">Cancel</button>` : ""}
+        <button class="act-btn del" onclick="deleteAppt('${a.id}','admin')">Delete</button>
+      </td>
+    </tr>`).join("");
+
+  drawChart();
+}
+
+function adminUpdate(id, status) {
+  const a = appointments.find(x => x.id === id);
+  if (!a) return;
+  a.status = status;
+  saveAppts();
+  renderAdmin();
+  const msgs = { approved:"Appointment approved ✅", rejected:"Appointment rejected", cancelled:"Appointment cancelled" };
+  showToast(msgs[status] || "Updated", status === "approved" ? "success" : "info");
+}
+
+function cancelAppt(id, view) {
+  const a = appointments.find(x => x.id === id);
+  if (!a) return;
+  a.status = "cancelled";
+  saveAppts();
+  view === "admin" ? renderAdmin() : renderMine();
+  showToast("Appointment cancelled", "info");
+}
+
+function deleteAppt(id, view) {
+  if (!confirm("Delete appointment " + id + "?")) return;
+  appointments = appointments.filter(x => x.id !== id);
+  saveAppts();
+  view === "admin" ? renderAdmin() : renderMine();
+  showToast("Appointment deleted", "info");
+}
+
+// ── CANVAS CHART ──────────────────────────────
+function drawChart() {
+  const canvas = document.getElementById("adminChart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+  const pad = { top:20, right:10, bottom:44, left:32 };
+  const cW = W - pad.left - pad.right;
+  const cH = H - pad.top  - pad.bottom;
+
+  // Count by specialist (first word)
+  const counts = {};
+  appointments.forEach(a => {
+    const key = (a.specialist || "Other").split(" ")[0];
+    counts[key] = (counts[key] || 0) + 1;
+  });
+
+  const labels = Object.keys(counts);
+  const values = Object.values(counts);
+  const colors = ["#1d4ed8","#059669","#d97706","#dc2626","#7c3aed","#0891b2","#be185d","#065f46","#92400e","#1e3a8a"];
+  const maxVal = Math.max(...values, 1);
+  const barW   = Math.max(20, Math.floor(cW / labels.length) - 8);
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = "#e2e8f0"; ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.top + cH - (i/4) * cH;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + cW, y); ctx.stroke();
+    ctx.fillStyle = "#94a3b8"; ctx.font = "10px DM Sans,sans-serif"; ctx.textAlign = "right";
+    ctx.fillText(Math.round((i/4) * maxVal), pad.left - 4, y + 4);
+  }
+
+  // Bars
+  labels.forEach((lbl, i) => {
+    const bH  = (values[i] / maxVal) * cH;
+    const x   = pad.left + i * (barW + 8) + 4;
+    const y   = pad.top + cH - bH;
+    const col = colors[i % colors.length];
+
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    const r = 4;
+    ctx.moveTo(x+r, y); ctx.lineTo(x+barW-r, y);
+    ctx.quadraticCurveTo(x+barW, y, x+barW, y+r);
+    ctx.lineTo(x+barW, y+bH); ctx.lineTo(x, y+bH); ctx.lineTo(x, y+r);
+    ctx.quadraticCurveTo(x, y, x+r, y); ctx.closePath(); ctx.fill();
+
+    ctx.fillStyle = "#334155"; ctx.font = "bold 11px DM Sans,sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(values[i], x + barW/2, y - 5);
+
+    ctx.fillStyle = "#64748b"; ctx.font = "10px DM Sans,sans-serif";
+    ctx.save(); ctx.translate(x + barW/2, pad.top + cH + 12);
+    ctx.rotate(-Math.PI/5); ctx.fillText(lbl, 0, 0); ctx.restore();
+  });
+
+  // Legend
+  document.getElementById("chartLegend").innerHTML = labels.map((l,i) =>
+    `<div class="leg-item"><span class="leg-dot" style="background:${colors[i%colors.length]}"></span>${l} (${values[i]})</div>`
+  ).join("");
+}
+
+// ── UTILITIES ─────────────────────────────────
+function badge(status) {
+  const map = {
+    approved:  '<span class="badge b-approved">✓ Approved</span>',
+    pending:   '<span class="badge b-pending">⏳ Pending</span>',
+    rejected:  '<span class="badge b-rejected">✕ Rejected</span>',
+    cancelled: '<span class="badge b-cancelled">✕ Cancelled</span>',
+  };
+  return map[status] || `<span class="badge">${status}</span>`;
+}
+
+function fmtDate(d) {
+  if (!d) return "—";
+  return new Date(d + "T00:00:00").toLocaleDateString("en-GB", { day:"numeric", month:"short", year:"numeric" });
+}
+
+function animCount(id, target) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let n = 0;
+  const step = Math.ceil(target / 20);
+  const t = setInterval(() => {
+    n = Math.min(n + step, target);
+    el.textContent = n;
+    if (n >= target) clearInterval(t);
+  }, 40);
+}
+
+let toastTimer;
+function showToast(msg, type="info") {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast show " + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 3500);
+}
+
+// ── INIT ──────────────────────────────────────
+goTo("home");
+</script>
+</body>
+</html>
