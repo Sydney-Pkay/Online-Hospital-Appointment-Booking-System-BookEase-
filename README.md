@@ -137,8 +137,6 @@ Start the application:
 npm start
 ```
 
-> Replace these commands with the actual installation and startup commands for your project.
-
 ## Database
 
 BookEase uses a database to store and manage information such as:
@@ -151,33 +149,18 @@ BookEase uses a database to store and manage information such as:
 
 The database structure is designed to maintain relationships between users and their appointments.
 
-## Screenshots
-
-Add screenshots of the application here to demonstrate the main interfaces.
 
 ### Login Page
 
-```text
-Add screenshot here
-```
 
 ### Patient Dashboard
 
-```text
-Add screenshot here
-```
 
 ### Appointment Booking
 
-```text
-Add screenshot here
-```
 
 ### Appointment Management
 
-```text
-Add screenshot here
-```
 
 ## Project Documentation
 
